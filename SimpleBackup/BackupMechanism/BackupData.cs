@@ -51,7 +51,7 @@ namespace BackupMechanism
                     foreach (string dirPath in Directory.EnumerateDirectories(source, "*",
                         SearchOption.AllDirectories))
                     {
-                        if ((object) dirPath != (object) target)
+                        if ((object)dirPath != (object)target)
                         {
                             Directory.CreateDirectory(dirPath.Replace(source, target));
                         }

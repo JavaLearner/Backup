@@ -13,7 +13,7 @@ namespace SimpleBackup
         public FormMain()
         {
             InitializeComponent();    
-            sound.startSound();
+            
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace SimpleBackup
             string sourcePath;
             string targetPath;
             bool flagSuccess = false;
-
+            sound.startSound();
             sourcePath = textBoxSource.Text;
             targetPath = textBoxTarget.Text;
             var formMechanism = new BackupData(sourcePath, targetPath);
@@ -36,13 +36,15 @@ namespace SimpleBackup
                 flagSuccess = formMechanism.copyData();
             }
 
-            Debug.Assert(flagSuccess, "Backup failed! ");
+            //Debug.Assert(flagSuccess, "Backup failed! ");
             if (flagSuccess)
             {
+                sound.finishSound();
                 ViewMassage("Backup completed! ", formMechanism.fileCount);
             }
             else
             {
+                sound.errorSound();
                 ViewMassage("Backup failed! ", formMechanism.fileCount);
             }
         }
