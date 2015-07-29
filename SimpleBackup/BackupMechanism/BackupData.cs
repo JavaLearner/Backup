@@ -40,42 +40,50 @@ namespace BackupMechanism
 
         private bool copyData(string source, string target)
         {
-            Debug.Assert(source == SYMBOL && target == SYMBOL, "Invalid Pathes!");
-            if (source != SYMBOL && target != SYMBOL)
-            {
-                try
-                {
-                    // If derictory from target exist in source don`t copy(BUG)
 
-                    // Create all of the directories
-                    foreach (string dirPath in Directory.EnumerateDirectories(source, "*",
-                        SearchOption.AllDirectories))
+            if (System.IO.Directory.Exists(source))
+            {
+                // Debug.Assert(source == SYMBOL && target == SYMBOL, "Invalid Pathes!");
+                if (source != SYMBOL && target != SYMBOL)
+                {
+                    try
                     {
-                        if ((object)dirPath != (object)target)
+                        // If derictory from target exist in source don`t copy(BUG)
+
+                        // Create all of the directories
+                        foreach (string dirPath in Directory.EnumerateDirectories(source, "*",
+                            SearchOption.AllDirectories))
                         {
-                            Directory.CreateDirectory(dirPath.Replace(source, target));
+                            if (!dirPath.Equals(target))
+                            {
+                                Directory.CreateDirectory(dirPath.Replace(source, target));
+                            }
                         }
                     }
-                }
-                catch
-                {
-                    return false;
-                }
-                try
-                {
-                    // Copy all the files & Replaces any files with the same name
-                    foreach (string newPath in Directory.EnumerateFiles(source, "*.*",
-                    SearchOption.AllDirectories))
+                    catch
                     {
-                        File.Copy(newPath, newPath.Replace(source, target), true);
-                        fileCount++;
+                        return false;
                     }
+                    try
+                    {
+                        // Copy all the files & Replaces any files with the same name
+                        foreach (string newPath in Directory.EnumerateFiles(source, "*.*",
+                        SearchOption.AllDirectories))
+                        {
+                            File.Copy(newPath, newPath.Replace(source, target), true);
+                            fileCount++;
+                        }
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                    return true;
                 }
-                catch
+                else
                 {
                     return false;
                 }
-                return true;
             }
             else
             {

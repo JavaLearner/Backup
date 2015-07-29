@@ -8,7 +8,7 @@ namespace SimpleBackup
 {
     public partial class FormMain : Form
     {
-        private BackupSound sound = new BackupSound();
+        //private BackupSound sound = new BackupSound();
 
         public FormMain()
         {
@@ -26,7 +26,7 @@ namespace SimpleBackup
             string sourcePath;
             string targetPath;
             bool flagSuccess = false;
-            sound.startSound();
+            //sound.startSound();
             sourcePath = textBoxSource.Text;
             targetPath = textBoxTarget.Text;
             var formMechanism = new BackupData(sourcePath, targetPath);
@@ -39,12 +39,12 @@ namespace SimpleBackup
             //Debug.Assert(flagSuccess, "Backup failed! ");
             if (flagSuccess)
             {
-                sound.finishSound();
+                //sound.finishSound();
                 ViewMassage("Backup completed! ", formMechanism.fileCount);
             }
             else
             {
-                sound.errorSound();
+                //sound.errorSound();
                 ViewMassage("Backup failed! ", formMechanism.fileCount);
             }
         }
@@ -58,7 +58,7 @@ namespace SimpleBackup
 
         private void browseSource_Click(object sender, EventArgs e)
         {
-            sound.pressButton();
+            //sound.pressButton();
             clickBrowse(textBoxSource);
             
 
@@ -66,7 +66,7 @@ namespace SimpleBackup
 
         private void browseTarget_Click(object sender, EventArgs e)
         {
-            sound.pressButton();
+            //sound.pressButton();
             clickBrowse(textBoxTarget);
         }
 
@@ -76,5 +76,7 @@ namespace SimpleBackup
             folderBrowser.ShowDialog();
             textBox.Text = folderBrowser.SelectedPath;
         }
+
+     
     }
 }
