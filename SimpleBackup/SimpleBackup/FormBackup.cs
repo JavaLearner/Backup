@@ -1,7 +1,7 @@
 ﻿using BackupMechanism;
 using System;
-using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SimpleBackup
@@ -12,8 +12,7 @@ namespace SimpleBackup
 
         public FormMain()
         {
-            InitializeComponent();    
-            
+            InitializeComponent();
         }
 
         /// <summary>
@@ -25,19 +24,26 @@ namespace SimpleBackup
         {
             string sourcePath;
             string targetPath;
-            bool flagSuccess = false;
+
             //sound.startSound();
             sourcePath = textBoxSource.Text;
             targetPath = textBoxTarget.Text;
             var formMechanism = new BackupData(sourcePath, targetPath);
+            Thread dataThread = new Thread(new ThreadStart(formMechanism.copyData));
 
             if (!string.IsNullOrEmpty(sourcePath) && !string.IsNullOrEmpty(targetPath))
             {
-                flagSuccess = formMechanism.copyData();
+                do
+                {
+                    dataThread.Start();
+                    //Thread.Sleep(10);
+                    progressBar.Increment(1);
+                    
+                } while (progressBar.Value != progressBar.Maximum && formMechanism.flagSuccess);
             }
 
             //Debug.Assert(flagSuccess, "Backup failed! ");
-            if (flagSuccess)
+            if (formMechanism.flagSuccess)
             {
                 //sound.finishSound();
                 ViewMassage("Backup completed! ", formMechanism.fileCount);
@@ -60,8 +66,6 @@ namespace SimpleBackup
         {
             //sound.pressButton();
             clickBrowse(textBoxSource);
-            
-
         }
 
         private void browseTarget_Click(object sender, EventArgs e)
@@ -77,6 +81,6 @@ namespace SimpleBackup
             textBox.Text = folderBrowser.SelectedPath;
         }
 
-     
+       
     }
 }

@@ -28,7 +28,5 @@ namespace SimpleBackup
         {
             finish_sound.Play();
         }
-
-
     }
 }

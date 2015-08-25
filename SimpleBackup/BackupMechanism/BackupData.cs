@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
+using System.Threading;
 
 namespace BackupMechanism
 {
@@ -16,11 +16,14 @@ namespace BackupMechanism
             set;
         }
 
+        public bool flagSuccess { get; set; }
+
         public BackupData(string source, string target)
         {
             this.source = source;
             this.target = target;
             fileCount = 0;
+            flagSuccess = false;
         }
 
         public string source { get; set; }
@@ -33,15 +36,14 @@ namespace BackupMechanism
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public bool copyData()
+        public void copyData()
         {
-            return copyData(source, target);
+             copyData(source, target);
         }
 
-        private bool copyData(string source, string target)
+        private void copyData(string source, string target)
         {
-
-            if (System.IO.Directory.Exists(source))
+            if (Directory.Exists(source))
             {
                 // Debug.Assert(source == SYMBOL && target == SYMBOL, "Invalid Pathes!");
                 if (source != SYMBOL && target != SYMBOL)
@@ -62,7 +64,7 @@ namespace BackupMechanism
                     }
                     catch
                     {
-                        return false;
+                        flagSuccess = false;
                     }
                     try
                     {
@@ -72,22 +74,24 @@ namespace BackupMechanism
                         {
                             File.Copy(newPath, newPath.Replace(source, target), true);
                             fileCount++;
+                           Thread.Sleep(500);
+
                         }
                     }
                     catch
                     {
-                        return false;
+                        flagSuccess = false;
                     }
-                    return true;
+                    flagSuccess = true; ;
                 }
                 else
                 {
-                    return false;
+                    flagSuccess = false;
                 }
             }
             else
             {
-                return false;
+                flagSuccess = false;
             }
         }
     }

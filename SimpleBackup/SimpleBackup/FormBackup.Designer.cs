@@ -36,6 +36,7 @@
             this.buttonStartBackup = new System.Windows.Forms.Button();
             this.browseSource = new System.Windows.Forms.Button();
             this.browseTarget = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // labelSource
@@ -72,7 +73,7 @@
             // 
             // buttonStartBackup
             // 
-            this.buttonStartBackup.Location = new System.Drawing.Point(209, 149);
+            this.buttonStartBackup.Location = new System.Drawing.Point(203, 124);
             this.buttonStartBackup.Name = "buttonStartBackup";
             this.buttonStartBackup.Size = new System.Drawing.Size(137, 27);
             this.buttonStartBackup.TabIndex = 4;
@@ -100,11 +101,20 @@
             this.browseTarget.UseVisualStyleBackColor = true;
             this.browseTarget.Click += new System.EventHandler(this.browseTarget_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 172);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(552, 23);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar.TabIndex = 7;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(576, 198);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.browseTarget);
             this.Controls.Add(this.browseSource);
             this.Controls.Add(this.buttonStartBackup);
@@ -134,6 +144,7 @@
         private System.Windows.Forms.Button buttonStartBackup;
         private System.Windows.Forms.Button browseSource;
         private System.Windows.Forms.Button browseTarget;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
