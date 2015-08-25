@@ -9,26 +9,22 @@ namespace BackupMechanism
     public class BackupData
     {
         private string SYMBOL = "";
+        public bool flagSuccess = false;
 
-        public int fileCount
-        {
-            get;
-            set;
-        }
+        public int fileCount { get; set; }
 
-        public bool flagSuccess { get; set; }
+        //public bool flagSuccess { get; set; }
+        public string source { get; set; }
+
+        public string target { get; set; }
 
         public BackupData(string source, string target)
         {
             this.source = source;
             this.target = target;
             fileCount = 0;
-            flagSuccess = false;
+            //flagSuccess = false;
         }
-
-        public string source { get; set; }
-
-        public string target { get; set; }
 
         /// <summary>
         /// Copy all data from source to target
@@ -38,7 +34,7 @@ namespace BackupMechanism
         /// <returns></returns>
         public void copyData()
         {
-             copyData(source, target);
+            copyData(source, target);
         }
 
         private void copyData(string source, string target)
@@ -74,8 +70,7 @@ namespace BackupMechanism
                         {
                             File.Copy(newPath, newPath.Replace(source, target), true);
                             fileCount++;
-                           Thread.Sleep(500);
-
+                            Thread.Sleep(500);
                         }
                     }
                     catch

@@ -36,9 +36,8 @@ namespace SimpleBackup
                 do
                 {
                     dataThread.Start();
-                    //Thread.Sleep(10);
-                    progressBar.Increment(1);
-                    
+                    Thread.Sleep(100);
+                    progressBar.Increment(10);
                 } while (progressBar.Value != progressBar.Maximum && formMechanism.flagSuccess);
             }
 
@@ -80,7 +79,5 @@ namespace SimpleBackup
             folderBrowser.ShowDialog();
             textBox.Text = folderBrowser.SelectedPath;
         }
-
-       
     }
 }
